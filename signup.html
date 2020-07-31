@@ -9,7 +9,18 @@
     <!--Samia and Ben, when you view this, change the href path to your own-->
     <link rel="stylesheet" href="C:\Users\Will_Macomber\Desktop\Project\CSS\style.css">
 
+    <script>
+        var pass = document.getElementById("password");
+        var con_pass = document.getElementById("confirm_pass");
 
+        while (pass != con_pass)
+        {
+            var text = document.createElement("P");
+            text.innerText("Please enter matching passwords in both fields");
+            document.body.appendChild(text);
+            text.style.color = "red";
+        }
+    </script>
 </head>
 
 <body>
@@ -41,7 +52,7 @@
 
 
     </div><!--end signup-->
-
+   
     <div id="buttons">
         <input type="submit" id="submit2" name="submit2">
         <input type="reset" id="reset" name="reset">
