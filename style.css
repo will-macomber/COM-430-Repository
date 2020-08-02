@@ -110,3 +110,10 @@ body {
     top: 20%;
     left: 44%;
 }
+
+#warning {
+    color: red;
+    position: fixed;
+    top: 43%;
+    left: 58%;
+}
