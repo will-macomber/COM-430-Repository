@@ -1,5 +1,18 @@
 body {
     background: #1E1E1E;
+    background-image: url("C:\\Users\\Will_Macomber\\Desktop\\Project\\images\\background.png");
+    height: 300px;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 500px;
+    position: relative;
+    z-index: 0;
+}
+
+#forms input {
+    margin-bottom: 10px;
+    width: 250px;
+    height: 30px;
 }
 
 #nav {
