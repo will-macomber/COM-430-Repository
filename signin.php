@@ -1,21 +1,29 @@
 <?php
 
+
 $email = $_POST['signup_email'];
 $password = $_POST['signup_password'];
 
+//connection variables
+$host="127.0.0.1";
+$port=3306;
+$socket="";
+$user="will_macomber";
+$password="";
+$dbname="niceguys";
 
-//create a variable for the database connection
-$connect = mysql_connect("will_macomber", "V3ct0rD@v3");
 
-//ensure the connection is successful
-//display an error if it fails
-if (!$connect)
-    {
-        die("Could not connect: " . mysql_error());
-    }
+//attempt connection
+$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+	or die ('Could not connect to the database server' . mysqli_connect_error());
+
+//$con->close();
+
+
+
 
 //select the database and table
-mysql_select_db("niceguys", $connect);
+mysql_select_db("niceguys", $con);
 
 //compare the known values from the database to what was entered
 $query = mysql_query("SELECT * FROM users WHERE email='$email', $connect");
@@ -50,6 +58,7 @@ else
         header("Location: index.php?id=$email");
     }
 }
+
 
 
 

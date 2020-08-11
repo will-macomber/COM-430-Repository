@@ -1,9 +1,10 @@
 <?php
 
-$firstname = $_POST['fn'];
-$lastname = $_POST['ln'];
-$image = $_POST['image_upload'];
-$appName = $_POST['appname'];
+//create variables for values
+$fname = $_POST['firstname'];
+$lname = $_POST['lastname'];
+$pass = $_POST['password'];
+$email = $_POST['email'];
 
 
 //connection variables
@@ -21,14 +22,14 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 
 //$con->close();
 
-//connect to the appropriate database
-mysql_select_db("niceguys", $con);
+//select the database and table
+mysql_select_db("niceguys", $connect);
 
-//upload the content
-$SQL = "INSER INTO images (image, AppName, firstn, lastn) VALUES ($image, $appName, $firstname, $lastname)";
+//create the SQL to inser the firstname and lastname into the database
+$SQL = "INSER INTO users (firstname, lastname, password, email) VALUES ($fname, $lname, $pass, $email)";
 
-//error catch
-if (!mysql_query($SQL, $con))
+//create a catch if the SQL and connection fail
+if (!mysql_query($SQL, $connect))
     {
         die("Error: " . mysql_error());
     }
@@ -38,5 +39,7 @@ echo "Your account has been created";
 
 //end the database connection so somebody doesn't backdoor it
 mysql_close($connect);
+
+
 
 ?>
