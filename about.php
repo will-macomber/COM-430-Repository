@@ -7,7 +7,7 @@
     <meta name="author" content="Will, Samia, Ben">
 
     <!--Samia and Ben, when you view this, change the href path to your own-->
-    <link rel="stylesheet" href="C:\Users\Will_Macomber\Desktop\Project\CSS\style.css">
+    <link rel="stylesheet" href="http://localhost:8080/final_project/CSS/style.css" type="text/css">
 
 
 </head>
@@ -15,9 +15,9 @@
 <body>
     <div id="nav">
         <div id="links">
-            <a href="C:\Users\Will_Macomber\Desktop\Project\HTML\index.html">Home</a>
+            <a href="index.php">Home</a>
             <a href="#">About</a>
-            <a href="C:\Users\Will_Macomber\Desktop\Project\HTML\signup.html">Sign Up</a>
+            <a href="signup.php">Sign Up</a>
             <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width: auto;">Sign In</a>
         </div><!--end links-->
     </div> <!--end nav div-->
@@ -62,6 +62,11 @@
         </div><!--end container div-->
         </form>
     </div><!-- end id01 div -->
+
+
+
+
+
     <script type="text/javascript">
         var modal = document.getElementById('id01');
         
