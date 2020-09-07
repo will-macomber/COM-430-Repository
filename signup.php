@@ -7,11 +7,17 @@ $email = '';
 $errors = array();
 
 //connect to db
-$db = mysqli_connect('127.0.0.1:8080', 'root', '', 'niceguys');
+$db = mysqli_connect('127.0.0.1', 'root', '');
 
-if (mysquli_connect_errono())
+if (!$db)
 {
-    echo "Failed to connect to MySQL: " . mysquli_connect_error();
+    die('Not connected : ' . msquli_error());
+}
+
+$db_selected = mysqli_select_db($db, 'niceguys');
+if (!$db_selected)
+{
+    die('Can\'t use foo : ' . mysqli_error());
 }
 
 //sign user up
@@ -26,46 +32,47 @@ if (isset($_POST['submit2']))
 
 
 
-//form validation
-if(empty($username)) { array_push($errors, "Username is required"); }
-if(empty($email)) { array_push($errors, "Email is required"); }
-if(empty($pass)) { array_push($errors, "Password is required"); }
-if(empty($firstname)) { array_push($errors, "First name is required"); }
-if(empty($lastname)) { array_push($errors, "Last name is required"); }
+    //form validation
+    if(empty($username)) { array_push($errors, "Username is required"); }
+    if(empty($email)) { array_push($errors, "Email is required"); }
+    if(empty($pass)) { array_push($errors, "Password is required"); }
+    if(empty($firstname)) { array_push($errors, "First name is required"); }
+    if(empty($lastname)) { array_push($errors, "Last name is required"); }
 
-if ($password != $con_pass) {
-    array_push($errors, "The two passwords don't match");
-}
-
-//make sure the user doesn't already exist
-$user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
-$result = mysqli_query($db, $user_check_query);
-$user = mysqli_fetch_assoc($result);
-
-if ($user) 
-{
-    if ($user['username'] === $username)
+    if ($password != $con_pass)
     {
-        array_push($errors, "Username already exists");
+        array_push($errors, "The two passwords don't match");
     }
 
-    if ($user['email'] === $email)
+    //make sure the user doesn't already exist
+    $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
+    $result = mysqli_query($db, $user_check_query);
+    $user = mysqli_fetch_assoc($result);
+
+    if ($user) 
     {
-        array_push($errors, "email already exists");
+        if ($user['username'] === $username)
+        {
+            array_push($errors, "Username already exists");
+        }
+
+        if ($user['email'] === $email)
+        {
+            array_push($errors, "email already exists");
+        }
     }
-}
 
-//register that user please!
-if (count($errors) == 0) 
-{
-    $password = md5($password_1); //encrypt the password before saving it in the db
+    //register that user please!
+    if (count($errors) == 0) 
+    {
+        $password = md5($pass); //encrypt the password before saving it in the db
 
-    $query = "INSERT INTO users (username, email, password, firstname, lastname) VALUES('$username', '$email', '$password', '$firstname', '$lastname')";
-    $mysqli_query($db, $query);
-    $_SESSION['username'] = $username;
-    $_SESSION['success'] = "You are now signed up";
-    header('location: signup.php');
-}
+        $query = "INSERT INTO users (username, email, password, firstname, lastname) VALUES('$username', '$email', '$password', '$firstname', '$lastname')";
+        $mysqli_query($db, $query);
+        $_SESSION['username'] = $username;
+        $_SESSION['success'] = "You are now signed up";
+        header('location: signup.php');
+    }
 }
 ?>
 <html lang="en">
