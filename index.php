@@ -96,7 +96,7 @@ if (isset($_POST['submit']))
         <input type="text" placeholder="App Name" name="appname" required id="appname"><br>
         <input type="text" placeholder="First Name" name="fn" required id="fn"><br>
         <input type="text" placeholder="Last Name" name="ln" required id="ln"><br>
-        <button type="submit" id="submit" name="submit">Submit</button>
+        <button type="submit" id="main_submit" name="submit">Submit</button>
        </form>
     </div><!--end forms div-->
 
