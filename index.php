@@ -11,18 +11,19 @@ if (isset($_POST['submit']))
 {
     //get the image name
     $image = $_FILES['image_upload']['name'];
+    
 
    //get the app name
-   $appName = mysqli_real_escpae_string($db, $_POST['appname']);
+   $appName = mysqli_real_escape_string($db, $_POST['appname']);
    //get the first name
-   $firstname = mysqli_real_escpae_string($db, $_POST['fn']);
+   $firstname = mysqli_real_escape_string($db, $_POST['fn']);
    //get the last name
-   $lastname = mysqli_real_escpae_string($db, $_POST['ln']);
+   $lastname = mysqli_real_escape_string($db, $_POST['ln']);
 
    //image file directory 
    $target = "images/".basename($image);
 
-   $sql = "INSERT INTO images (image, firstname, lastname, appname) VALUES ('$image', '$firstname', '$lastname', '$appname')";
+   $sql = "INSERT INTO images (image, firstname, lastname, appname) VALUES ('$image', '$firstname', '$lastname', '$appName')";
 
    //execute that query up there
    mysqli_query($db, $sql);
@@ -90,12 +91,12 @@ if (isset($_POST['submit']))
     </div
     -->
     <div id="forms">
-       <form method="post" action="index.php" enctype="multipart/form-data"> 
-        <input type="file" id="image_upload" value="Choose Image"><br>
-        <input type="text" placeholder="App Name" required id="appname"><br>
-        <input type="text" placeholder="First Name" required id="fn"><br>
-        <input type="text" placeholder="Last Name" required id="ln"><br>
-        <input type="submit" id="submit" value="Submit">
+       <form method="POST" action="index.php" enctype="multipart/form-data"> 
+        <input type="file" id="image_upload" name="image_upload" value="Choose Image"><br>
+        <input type="text" placeholder="App Name" name="appname" required id="appname"><br>
+        <input type="text" placeholder="First Name" name="fn" required id="fn"><br>
+        <input type="text" placeholder="Last Name" name="ln" required id="ln"><br>
+        <button type="submit" id="submit" name="submit">Submit</button>
        </form>
     </div><!--end forms div-->
 
