@@ -38,6 +38,35 @@ if (isset($_POST['submit']))
    }
 }
 
+$search = $_GET['placeholder'];
+
+//number of previously loaded results
+$offset = $_GET['loaded'];
+
+//remember that we already have a variable for the database connection
+//which is $db
+
+$searchSQL = 'SELECT * FROM images WHERE MATCH (appname, firstname, lastname, image) AGAINST ( "' . $search . '" ) LIMIT ' . $offset . ', 10;';
+
+$searchResult = $db->query($searchSQL);
+
+//declade the array variable to store the results
+$output = array();
+
+if ($result -> num_rows > 0)
+{
+    while ($row = $result->fetch_assoc() )
+    {
+        //add row to output array in the form of an associative array 
+        $output[] = array ("image" => $row["image"], "firstname" => $row["firstname"], "lastname" => $row["lastname"], "appname" => $row["appname"]);
+    }//end while
+}//end if
+
+$db->close();
+
+//convert to JSON and output 
+echo (json_encode($output));
+
 //$result = mysqli_query($db, "SELECT * FROM imges");
 ?>
 <html lang="en">
