@@ -27,21 +27,23 @@ if (isset($_POST['submit']))
 
    //execute that query up there
    mysqli_query($db, $sql);
-
-   if(move_uploaded_file($_FILES['image']['tmp_name'], $target))
-   {
-       $msg = "Image uploaded successfully.";
-   }
-   else 
-   {
-       $msg = "Failed to upload image";
-   }
+    if(isset($_FILES['image']['tmp_name']))
+    {
+        if(move_uploaded_file($_FILES['image']['tmp_name'], $target))
+        {
+            $msg = "Image uploaded successfully.";
+        }
+        else 
+        {
+            $msg = "Failed to upload image";
+        }
+    }//end if for isset()
 }
 
-$search = $_GET['placeholder'];
+$search = isset($_GET['search_field']);
 
 //number of previously loaded results
-$offset = $_GET['loaded'];
+$offset = isset($_GET['loaded']);
 
 //remember that we already have a variable for the database connection
 //which is $db
@@ -53,7 +55,8 @@ $searchResult = $db->query($searchSQL);
 //declade the array variable to store the results
 $output = array();
 
-if ($result -> num_rows > 0)
+
+if ($searchResult->num_rows > 0)
 {
     while ($row = $result->fetch_assoc() )
     {
@@ -79,7 +82,48 @@ echo (json_encode($output));
 
     <!--Samia and Ben, when you view this, change the href path to your own-->
     <link rel="stylesheet" href="http://localhost/Nice Guys/style.css" type="text/css">
+    <script type="text/javascript">
+    function searchPosts(loadedResults)
+{
+    var query = document.getElementById("Placeholder").value;
+    var resultsContainer = document.getElementById("search_results");
 
+    //clearn the results container if no previous results have been loaded
+    if (loadedResults === 0)
+    {
+        resultsContainer.innerHTML = "";
+    }
+
+    //create the XMLHTTPRequest object
+    var xmlhttp = new XMLHttpRequest();
+
+    //create function that is called when the request is completed
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+        {
+            //fetch the response text
+            var response = xmlhttp.responseText;
+            var outputPosts;
+
+            //parse the response if it is valid JSON
+
+            try {
+                outputPosts = JSON.parse(response);
+            }//end try
+            catch(e){
+                return;
+            }//end catch
+            finally {
+                resultsContainer.innerHTML += "<br><button id='load_button' onclick='searchPosts( " + loadedResults + outputResults.length) + " ) '>Load More</button>";
+            }//end finally
+        }//end if
+    };
+
+    //send the request to fetch searchDB.php
+    xmlhttp.open("GET", "searchDB.php?search=" + query + "&loaded=" + loadedResults, true);
+    xmlhttp.send();
+}//end searchPosts()
+    </script>
 
 </head>
 
@@ -91,6 +135,11 @@ echo (json_encode($output));
             <a href="signup.php">Sign Up</a>
             <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width: auto;">Sign In</a>
         </div><!--end links-->
+
+        <div id="search">
+            <input id="search_field" type="text" placeholder="Search">
+            <button id="search_button" onclick="searchPosts(0)">Search</button>
+        </div><!--end search div-->
     </div> <!--end nav div-->
 
     <div id="header">
@@ -158,7 +207,10 @@ echo (json_encode($output));
         }
         </script>
         
+        
+        <div id="search_results">
 
+        </div><!--end search_results div-->
 
 </body>
 

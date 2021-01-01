@@ -1,6 +1,6 @@
 body {
     background: #1E1E1E;
-    background-image: url("C:\\Users\\Will_Macomber\\Desktop\\Project\\images\\background.png");
+    background-image: url("http://localhost//Nice Guys//background.png");
     height: 300px;
     background-position: right;
     background-repeat: no-repeat;
@@ -28,6 +28,7 @@ body {
 #links {
     padding-top: 10px;
     padding-left: 50px;
+    width: 350px;
 }
 
 #links a {
@@ -68,9 +69,10 @@ body {
     border-radius: 3px;
 }
 
-#submit {
-    border: 1px solid #363636;
+#forms #main_submit {
+    border: 1px solid #888787;
     border-radius: 3px;
+    color: #b3b3b3;
 }
 
 #text {
@@ -157,6 +159,7 @@ label {
 }
 
 /* button styles */
+
 button {
     background-color: #363636;
     color: #dfdfdf;
@@ -247,4 +250,25 @@ button {
     font-size: 10px;
     float: right;
     margin-right: 60px;
+}
+
+/* search function styling */
+#search {
+    position: absolute;
+    z-index: 1000;
+    right: 10px;
+    bottom: 25px;
+}
+
+#search_field {
+    border: none;
+    width: 200px;
+    height: 30px;
+}
+
+#search_button {
+    width: 100px;
+    height: 30px;
+    border: none;
+    background-color: #363636;
 }
