@@ -257,7 +257,7 @@ button {
     position: absolute;
     z-index: 1000;
     right: 10px;
-    bottom: 25px;
+    top: 25px;
 }
 
 #search_field {

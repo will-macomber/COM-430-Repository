@@ -56,7 +56,7 @@ $searchResult = $db->query($searchSQL);
 $output = array();
 
 
-if ($searchResult->num_rows > 0)
+if ($searchResult !== false && $searchResult->num_rows > 0)
 {
     while ($row = $result->fetch_assoc() )
     {
